@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+
+.pageContainer {
+    width: 80%;
+    margin: 0 auto;
+}
+
+header, main {
+    border: 1px solid #999999;
+    border-radius: 5px;
+    padding: 10px;
+    overflow: auto;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+header div {
+    float: right;
+    padding: 3px 10px;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+
+header div:hover {
+    cursor: pointer;
+    border-color: #000000;
+}
+
+.answerBox {
+    border: 1px solid #999999;
+    min-height: 50px;
+    min-width: 50px;
+}
