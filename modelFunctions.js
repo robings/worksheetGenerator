@@ -25,10 +25,30 @@ function generateWorksheetQuestions() {
                 default:
                     operand = '&#247;'
             }
-
         }
 
-        questions.push({ x, y, operand })
+        let boxPos = generateRandomNo(1,5)
+        let answer
+        switch(operand) {
+            case '+':
+                answer = x + y
+                break
+            case '-':
+                answer = x - y
+                break
+            case '&#215;' || '×':
+                answer = x * y
+                break
+            case '&#247;' || '÷':
+                answer = x/y
+                break
+            default:
+                answer="opps"
+                break
+        }
+
+
+        questions.push({ x, y, operand, boxPos, answer })
 
     }
     return questions;

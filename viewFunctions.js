@@ -1,4 +1,5 @@
 function generateWorksheetView(questions) {
+    console.log(questions)
     let worksheetHTML = ''
 
     questions.forEach((question, key) => {
