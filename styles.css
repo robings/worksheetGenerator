@@ -8,7 +8,7 @@
 }
 
 header, main {
-    border: 1px solid #999999;
+    border: 1px solid #2c3e50;
     border-radius: 5px;
     padding: 10px;
     overflow: auto;
@@ -33,10 +33,12 @@ header div:hover {
 
 main {
     font-family: 'Comic Sans MS', 'sans-serif';
+    color: #2980b9;
 }
 
 main h1 {
     text-align: center;
+    color: #e74c3c;
 }
 
 #worksheet {
@@ -44,7 +46,7 @@ main h1 {
 }
 
 .answerBox, .tickBox {
-    border: 1px solid #999999;
+    border: 1px solid #e67e22;
     border-radius: 5px;
 }
 
@@ -63,14 +65,19 @@ main h1 {
     float: right;
 }
 
+.questionContainer {
+    width: 50%;
+    overflow: auto;
+    float: left;
+}
+
 .question {
-    border: 1px solid #000000;
+    border: 1px solid #2c3e50;
     border-radius: 5px;
     padding: 10px;
     overflow: auto;
-    width: 50%;
-    margin: 5px 0;
-    float: left;
+    margin: 5px;
+    float: none;
 }
 
 .question div {
