@@ -19,6 +19,10 @@ header {
 }
 
 header div {
+    margin-top: 10px;
+}
+
+header .button {
     float: right;
     padding: 3px 10px;
     border: 1px solid #999999;
@@ -26,7 +30,7 @@ header div {
     margin: 0 10px;
 }
 
-header div:hover {
+header .button:hover {
     cursor: pointer;
     border-color: #000000;
 }
