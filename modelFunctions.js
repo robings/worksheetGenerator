@@ -1,14 +1,18 @@
+function generateNumberForQuestions() {
+    let nos = document.querySelectorAll('input')
+    minVal=parseInt(nos[0].value)
+    maxVal=parseInt(nos[1].value)
+
+    return generateRandomNo(minVal, maxVal)
+}
+
 function generateWorksheetQuestions() {
     let questions = [];
 
     for (let i=0; i < 20; i++)
     {
-        let nos = document.querySelectorAll('input')
-        minVal=parseInt(nos[0].value)
-        maxVal=parseInt(nos[1].value)
-        console.log(minVal, maxVal)
-        let x = generateRandomNo(minVal, maxVal)
-        let y = generateRandomNo(minVal, maxVal)
+        let x = generateNumberForQuestions()
+        let y = generateNumberForQuestions()
         let operand = document.querySelector('select').value
         if(operand === "All") {
             let random = generateRandomNo(1,4)
@@ -27,20 +31,32 @@ function generateWorksheetQuestions() {
             }
         }
 
+        operand = operand == '×' ? operand = '&#215;' : operand
+        operand = operand == '÷' ? operand = '&#247;' : operand
+
+        //console.log(`Operand: ${operand}`)
+
         let boxPos = generateRandomNo(1,5)
         let answer
+        let checkedQuestion
         switch(operand) {
             case '+':
                 answer = x + y
                 break
             case '-':
-                answer = x - y
+                checkedQuestion = checkMinusAnswer(x, y)
+                x = checkedQuestion[0]
+                y = checkedQuestion[1]
+                answer = checkedQuestion[2]
                 break
-            case '&#215;' || '×':
+            case '&#215;':
                 answer = x * y
                 break
-            case '&#247;' || '÷':
-                answer = x/y
+            case '&#247;':
+                checkedQuestion = checkDivideAnswer(x, y)
+                x = checkedQuestion[0]
+                y = checkedQuestion[1]
+                answer = checkedQuestion[2]
                 break
             default:
                 answer="opps"
@@ -52,4 +68,32 @@ function generateWorksheetQuestions() {
 
     }
     return questions;
+}
+
+function checkMinusAnswer(x, y) {
+    let checkedQuestion = []
+
+    while((x-y) < 0) {
+        x = generateNumberForQuestions()
+        y = generateNumberForQuestions()
+    }
+
+    checkedQuestion[0] = x
+    checkedQuestion[1] = y
+    checkedQuestion[2] = x - y
+    return checkedQuestion
+}
+
+function checkDivideAnswer(x, y) {
+    let checkedQuestion = []
+
+    while(x%y != 0) {
+        x = generateNumberForQuestions()
+        y = generateNumberForQuestions()
+    }
+
+    checkedQuestion[0] = x
+    checkedQuestion[1] = y
+    checkedQuestion[2] = x / y
+    return checkedQuestion
 }

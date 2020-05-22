@@ -4,9 +4,31 @@ function generateWorksheetView(questions) {
 
     questions.forEach((question, key) => {
         let questionHTML = '<div class="questionContainer"><div class="question">'
-        questionHTML += `<div>Q${key+1}.</div><div>${question.x}</div><div>&nbsp;${question.operand}&nbsp;</div>`
-        questionHTML += `<div>${question.y}</div><div>&nbsp;=&nbsp;</div>`
-        questionHTML += '<div class="answerBox"></div><div class="tickBox"></div></div></div>'
+        questionHTML += `<div class="questionNumber">Q${key+1}.</div>`
+
+        if(question.boxPos === 1) {
+            questionHTML += '<div class="answerBox"></div>'
+        } else {
+            questionHTML += `<div>${question.x}</div>`
+        }
+
+        questionHTML += `<div>&nbsp;${question.operand}&nbsp;</div>`
+
+        if(question.boxPos === 2) {
+            questionHTML += '<div class="answerBox"></div>'
+        } else {
+            questionHTML += `<div>${question.y}</div>`
+        }
+
+        questionHTML += '<div>&nbsp;=&nbsp;</div>'
+
+        if(question.boxPos > 2) {
+            questionHTML += '<div class="answerBox"></div>'
+        } else {
+            questionHTML += `<div>${question.answer}</div>`
+        }
+
+        questionHTML += '<div class="tickBox"></div></div></div>'
         worksheetHTML += questionHTML
     })
 

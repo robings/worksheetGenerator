@@ -34,6 +34,7 @@ header div:hover {
 main {
     font-family: 'Comic Sans MS', 'sans-serif';
     color: #2980b9;
+    font-size: 20px;
 }
 
 main h1 {
@@ -80,8 +81,11 @@ main h1 {
     float: none;
 }
 
+.questionNumber {
+    color: #2c3e50;
+}
+
 .question div {
-    padding-top: 5px;
     float: left;
 }
 
@@ -95,7 +99,6 @@ main h1 {
 }
 
 .scoreBox div:last-child {
-    padding-top: 5px;
     float: left;
 }
 
