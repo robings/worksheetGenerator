@@ -50,7 +50,10 @@ function generateWorksheetQuestions() {
                 answer = checkedQuestion[2]
                 break
             case '&#215;':
-                answer = x * y
+                checkedQuestion = checkMultiplyAnswer(x, y)
+                x = checkedQuestion[0]
+                y = checkedQuestion[1]
+                answer = checkedQuestion[2]
                 break
             case '&#247;':
                 checkedQuestion = checkDivideAnswer(x, y)
@@ -81,6 +84,20 @@ function checkMinusAnswer(x, y) {
     checkedQuestion[0] = x
     checkedQuestion[1] = y
     checkedQuestion[2] = x - y
+    return checkedQuestion
+}
+
+function checkMultiplyAnswer(x, y) {
+    let checkedQuestion = []
+
+    while( x > 12 || y > 12) {
+        x = generateNumberForQuestions()
+        y = generateNumberForQuestions()
+    }
+
+    checkedQuestion[0] = x
+    checkedQuestion[1] = y
+    checkedQuestion[2] = x * y
     return checkedQuestion
 }
 
