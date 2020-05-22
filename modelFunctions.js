@@ -14,7 +14,7 @@ function generateWorksheetQuestions() {
         let x = generateNumberForQuestions()
         let y = generateNumberForQuestions()
         let operand = document.querySelector('select').value
-        if(operand === "All") {
+        if(operand === 'All') {
             let random = generateRandomNo(1,4)
             switch (random) {
                 case 1:
@@ -62,7 +62,7 @@ function generateWorksheetQuestions() {
                 answer = checkedQuestion[2]
                 break
             default:
-                answer="opps"
+                answer='opps'
                 break
         }
 
