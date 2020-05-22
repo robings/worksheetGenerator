@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Worksheet Generator</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script defer src="modelFunctions.js"></script>
+    <script defer src="viewFunctions.js"></script>
+    <script defer src="controllerFunctions.js"></script>
+</head>
+
+<body>
+<div class="pageContainer">
+
+    <header>
+        <form>
+            <label>Min No: </label><input type="number" name="minNo" />
+            <label>Max No: </label><input type="number" name="maxNo" />
+            <label>Operand:</label>
+            <select name="operand">
+                <option>+</option>
+                <option>-</option>
+                <option>&#215;</option>
+                <option>&#247;</option>
+                <option>All</option>
+            </select>
+
+            <div class="button print">Print</div>
+            <div class="button generate">Generate Worksheet</div>
+        </form>
+    </header>
+
+    <main>
+        <h1>Maths Worksheet</h1>
+        <div>Date: </div>
+        <div id="worksheet"></div>
+        <div class="scoreBox"><div class="answerBox"></div><div>/&nbsp;20</div></div>
+    </main>
+</div>
+</body>
+</html>
