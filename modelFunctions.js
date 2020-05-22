@@ -1,7 +1,7 @@
 function generateNumberForQuestions() {
     let nos = document.querySelectorAll('input')
-    minVal=parseInt(nos[0].value)
-    maxVal=parseInt(nos[1].value)
+    let minVal=parseInt(nos[0].value)
+    let maxVal=parseInt(nos[1].value)
 
     return generateRandomNo(minVal, maxVal)
 }
