@@ -9,7 +9,7 @@ function generateNumberForQuestions() {
 function generateWorksheetQuestions() {
     let questions = [];
 
-    for (let i=0; i < 20; i++)
+    for (let i=0; i < 10; i++)
     {
         let x = generateNumberForQuestions()
         let y = generateNumberForQuestions()
@@ -87,7 +87,7 @@ function checkMinusAnswer(x, y) {
 function checkDivideAnswer(x, y) {
     let checkedQuestion = []
 
-    while(x%y != 0) {
+    while(x%y != 0 || x === 0 || y === 0) {
         x = generateNumberForQuestions()
         y = generateNumberForQuestions()
     }
