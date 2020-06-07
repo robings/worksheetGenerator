@@ -14,20 +14,31 @@
 
     <header>
         <form>
-            <label for="minNo">Min No: </label><input type="number" id="minNo" name="minNo" />
-            <label for="maxNo">Max No: </label><input type="number" id="maxNo" name="maxNo" />
-            <label>Operand:</label>
-            <select name="operand">
-                <option>+</option>
-                <option>-</option>
-                <option>&#215;</option>
-                <option>&#247;</option>
-                <option>All</option>
-            </select>
+            <div>
+                <div class="button add-section float-left">Add Section</div>
+                <div class="button print float-right">Print</div>
+                <div class="button generate float-right">Generate Worksheet</div>
+            </div>
 
-            <div class="button print">Print</div>
-            <div class="button generate">Generate Worksheet</div>
-            <div><label for="noOfQuestions">No. of Questions (max 28): </label><input type="number" id="noOfQuestions" name="noOfQuestions" /></div>
+            <div class="worksheet-section">
+                <label for="minNo">Min No: </label><input type="number" id="minNo" name="minNo" />
+                <label for="maxNo">Max No: </label><input type="number" id="maxNo" name="maxNo" />
+                <label>Operand:</label>
+                <select name="operand">
+                    <option>+</option>
+                    <option>-</option>
+                    <option>&#215;</option>
+                    <option>&#247;</option>
+                    <option>All</option>
+                </select>
+                <label for="noOfQuestions">No. of Questions: </label><input type="number" id="noOfQuestions" name="noOfQuestions" />
+                <div class="button delete float-right">Delete</div>
+            </div>
+
+            <div>
+                <div class="inline float-left">No. of Questions: 0</div>
+                <div class="inline error-message float-right"></div>
+            </div>
         </form>
     </header>
 

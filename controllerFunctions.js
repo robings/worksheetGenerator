@@ -1,7 +1,8 @@
 document.querySelector('.generate').addEventListener('click', () => {
     if(validateInput()) {
-        alert(validateInput())
+        document.querySelector('.error-message').textContent=validateInput()
     }  else {
+        document.querySelector('.error-message').textContent=""
         console.log('generating...')
         let questions = generateWorksheetQuestions()
         // console.log(questions)
