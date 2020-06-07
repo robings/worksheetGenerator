@@ -14,8 +14,8 @@
 
     <header>
         <form>
-            <label>Min No: </label><input type="number" name="minNo" />
-            <label>Max No: </label><input type="number" name="maxNo" />
+            <label for="minNo">Min No: </label><input type="number" id="minNo" name="minNo" />
+            <label for="maxNo">Max No: </label><input type="number" id="maxNo" name="maxNo" />
             <label>Operand:</label>
             <select name="operand">
                 <option>+</option>
@@ -27,6 +27,7 @@
 
             <div class="button print">Print</div>
             <div class="button generate">Generate Worksheet</div>
+            <div><label for="noOfQuestions">No. of Questions (max 28): </label><input type="number" id="noOfQuestions" name="noOfQuestions" /></div>
         </form>
     </header>
 
@@ -34,7 +35,7 @@
         <h1>Maths Worksheet</h1>
         <div>Date: </div>
         <div id="worksheet"></div>
-        <div class="scoreBox"><div class="answerBox"></div><div>/&nbsp;20</div></div>
+        <div class="scoreBox"><div class="answerBox"></div><div id="totalPossibleScore">/&nbsp;</div></div>
     </main>
 </div>
 </body>

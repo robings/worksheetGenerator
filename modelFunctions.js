@@ -8,8 +8,9 @@ function generateNumberForQuestions() {
 
 function generateWorksheetQuestions() {
     let questions = [];
+    let noOfQuestions = document.querySelectorAll('input')[2].value
 
-    for (let i=0; i < 10; i++)
+    for (let i=0; i < noOfQuestions; i++)
     {
         let x = generateNumberForQuestions()
         let y = generateNumberForQuestions()
