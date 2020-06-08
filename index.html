@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Worksheet Generator</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
     <script defer src="modelFunctions.js"></script>
     <script defer src="viewFunctions.js"></script>
     <script defer src="controllerFunctions.js"></script>
@@ -20,19 +20,21 @@
                 <div class="button generate float-right">Generate Worksheet</div>
             </div>
 
-            <div class="worksheet-section">
-                <label for="minNo">Min No: </label><input type="number" id="minNo" name="minNo" />
-                <label for="maxNo">Max No: </label><input type="number" id="maxNo" name="maxNo" />
-                <label>Operand:</label>
-                <select name="operand">
-                    <option>+</option>
-                    <option>-</option>
-                    <option>&#215;</option>
-                    <option>&#247;</option>
-                    <option>All</option>
-                </select>
-                <label for="noOfQuestions">No. of Questions: </label><input type="number" id="noOfQuestions" name="noOfQuestions" />
-                <div class="button delete float-right">Delete</div>
+            <div id="worksheetSectionSettings">
+                <div class="worksheet-section">
+                    <label>Min No: </label><input type="number"/>
+                    <label>Max No: </label><input type="number"/>
+                    <label>Operand:</label>
+                    <select>
+                        <option>+</option>
+                        <option>-</option>
+                        <option>&#215;</option>
+                        <option>&#247;</option>
+                        <option>All</option>
+                    </select>
+                    <label>No. of Questions: </label><input type="number"/>
+                    <div class="button delete float-right">Delete</div>
+                </div>
             </div>
 
             <div>
@@ -44,9 +46,12 @@
 
     <main>
         <h1>Maths Worksheet</h1>
-        <div>Date: </div>
+        <div>Date:</div>
         <div id="worksheet"></div>
-        <div class="scoreBox"><div class="answerBox"></div><div id="totalPossibleScore">/&nbsp;</div></div>
+        <div class="scoreBox">
+            <div class="answerBox"></div>
+            <div id="totalPossibleScore">/&nbsp;</div>
+        </div>
     </main>
 </div>
 </body>
