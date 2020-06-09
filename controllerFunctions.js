@@ -16,12 +16,24 @@ document.querySelector('.generate').addEventListener('click', () => {
     }
 })
 
-document.querySelector('.worksheet-section').children[7].addEventListener('blur', ()=> {
+document.querySelector('.worksheet-section').children[7].addEventListener('blur', () => {
     let noOfQuestions = countQuestions()
     document.getElementById('noOfQuestions').textContent = `No. of Questions: ${noOfQuestions} (max 28)`
 })
 
+document.querySelector('.worksheet-section').children[8].addEventListener('click', (e) => {
+    if (document.querySelectorAll('.worksheet-section').length === 1) {
+        document.querySelector('.error-message').textContent = "Cannot delete the last section"
+    } else {
+        e.currentTarget.parentElement.remove()
+        let noOfQuestions = countQuestions()
+        document.getElementById('noOfQuestions').textContent = `No. of Questions: ${noOfQuestions} (max 28)`
+    }
+})
+
 document.querySelector('.add-section').addEventListener('click', () => {
+    document.querySelector('.error-message').textContent = ""
+
     let newElement = document.createElement('div')
     newElement.setAttribute("class", "worksheet-section")
 
@@ -42,11 +54,21 @@ document.querySelector('.add-section').addEventListener('click', () => {
 
     document.getElementById('worksheetSectionSettings').appendChild(newElement)
 
-    let lastSection = document.querySelectorAll('.worksheet-section').length -1
+    let lastSection = document.querySelectorAll('.worksheet-section').length - 1
 
-    document.querySelectorAll('.worksheet-section')[lastSection].children[7].addEventListener('blur', ()=> {
+    document.querySelectorAll('.worksheet-section')[lastSection].children[7].addEventListener('blur', () => {
         let noOfQuestions = countQuestions()
         document.getElementById('noOfQuestions').textContent = `No. of Questions: ${noOfQuestions} (max 28)`
+    })
+
+    document.querySelectorAll('.worksheet-section')[lastSection].children[8].addEventListener('click', (e) => {
+        if (document.querySelectorAll('.worksheet-section').length === 1) {
+            document.querySelector('.error-message').textContent = "Cannot delete the last section"
+        } else {
+            e.currentTarget.parentElement.remove()
+            let noOfQuestions = countQuestions()
+            document.getElementById('noOfQuestions').textContent = `No. of Questions: ${noOfQuestions} (max 28)`
+        }
     })
 })
 
