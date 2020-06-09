@@ -8,15 +8,15 @@ function generateWorksheetQuestions() {
         let maxVal=parseInt(worksheetSection.children[3].value)
 
         let noOfQuestions = parseInt(worksheetSection.children[7].value)
-        let operand = worksheetSection.children[5].value
-
+        let operandChoice = worksheetSection.children[5].value
 
         for (let i=0; i < noOfQuestions; i++)
         {
             let x = generateRandomNo(minVal, maxVal)
             let y = generateRandomNo(minVal, maxVal)
+            let operand
 
-            if(operand === 'All') {
+            if(operandChoice === 'All') {
                 let random = generateRandomNo(1,4)
                 switch (random) {
                     case 1:
@@ -31,6 +31,8 @@ function generateWorksheetQuestions() {
                     default:
                         operand = '&#247;'
                 }
+            } else {
+                operand = operandChoice
             }
 
             operand = operand == '×' ? operand = '&#215;' : operand

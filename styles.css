@@ -57,6 +57,7 @@ header .button {
     border: 1px solid #999999;
     border-radius: 5px;
     margin: 0 10px;
+    text-decoration: none;
 }
 
 header .button:hover {
