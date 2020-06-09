@@ -80,7 +80,9 @@ function countQuestions() {
     let totalQuestions = 0
     let worksheetSections = document.querySelectorAll('.worksheet-section')
     worksheetSections.forEach((worksheetSection) => {
-        totalQuestions += parseInt(worksheetSection.children[7].value)
+        if (worksheetSection.children[7].value != "") {
+            totalQuestions += parseInt(worksheetSection.children[7].value)
+        }
     })
     return totalQuestions
 }

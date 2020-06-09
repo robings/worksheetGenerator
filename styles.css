@@ -82,7 +82,7 @@ header .worksheet-section {
 }
 
 header .error-message {
-    margin-right: 10px;
+    margin: 10px;
     color: #E81123;
 }
 
