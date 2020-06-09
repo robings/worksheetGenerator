@@ -16,6 +16,11 @@ document.querySelector('.generate').addEventListener('click', () => {
     }
 })
 
+document.querySelector('.worksheet-section').children[7].addEventListener('blur', ()=> {
+    let noOfQuestions = countQuestions()
+    document.getElementById('noOfQuestions').textContent = `No. of Questions: ${noOfQuestions} (max 28)`
+})
+
 document.querySelector('.add-section').addEventListener('click', () => {
     let newElement = document.createElement('div')
     newElement.setAttribute("class", "worksheet-section")
@@ -36,14 +41,32 @@ document.querySelector('.add-section').addEventListener('click', () => {
     newElement.innerHTML = newSection
 
     document.getElementById('worksheetSectionSettings').appendChild(newElement)
+
+    let lastSection = document.querySelectorAll('.worksheet-section').length -1
+
+    document.querySelectorAll('.worksheet-section')[lastSection].children[7].addEventListener('blur', ()=> {
+        let noOfQuestions = countQuestions()
+        document.getElementById('noOfQuestions').textContent = `No. of Questions: ${noOfQuestions} (max 28)`
+    })
 })
 
 function generateRandomNo(minNum, maxNum) {
     return Math.floor(Math.random() * (maxNum - minNum + 1) + minNum)
 }
 
+function countQuestions() {
+    let totalQuestions = 0
+    let worksheetSections = document.querySelectorAll('.worksheet-section')
+    worksheetSections.forEach((worksheetSection) => {
+        totalQuestions += parseInt(worksheetSection.children[7].value)
+    })
+    return totalQuestions
+}
+
 function validateInput() {
     let message = ''
+
+    let totalQuestions = countQuestions()
 
     if (document.querySelectorAll('input')[0].value < 0 ||
         document.querySelectorAll('input')[1].value < 0 ||
@@ -57,7 +80,7 @@ function validateInput() {
     if (document.querySelectorAll('input')[2].value === '') {
         message += 'Please enter a number of questions.\n'
     }
-    if (document.querySelectorAll('input')[2].value > 28) {
+    if (totalQuestions > 28) {
         message += '28 is the maximum number of questions that will fit on the page.'
     }
 
