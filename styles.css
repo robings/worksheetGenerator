@@ -7,6 +7,18 @@
     margin: 0 auto;
 }
 
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float: left;
+}
+
+.inline {
+    width: auto;
+}
+
 header, main {
     border: 1px solid #2c3e50;
     border-radius: 5px;
@@ -16,23 +28,72 @@ header, main {
 
 header {
     margin-bottom: 20px;
+    font-family: "Helvetica Neue", "Helvetica", sans-serif;
 }
 
 header div {
     margin-top: 10px;
+    width: 100%;
+    display: block;
+    overflow: auto;
+}
+
+header form {
+    overflow: auto;
+}
+
+header input, header select {
+    margin-top: 3px;
+    margin-right: 10px;
+    padding: 6px;
+}
+
+header input {
+    width: 75px;
 }
 
 header .button {
-    float: right;
-    padding: 3px 10px;
+    width: auto;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    background-color: #0078D7;
+    padding: 10px;
     border: 1px solid #999999;
     border-radius: 5px;
     margin: 0 10px;
+    text-decoration: none;
 }
 
 header .button:hover {
     cursor: pointer;
+    background-color: #0099BC;
     border-color: #000000;
+}
+
+header .delete {
+    background-color: #E81123;
+}
+
+header .delete:hover {
+    background-color: #E74856;
+}
+
+header .worksheet-section {
+    margin: 20px 0;
+    padding: 7px 5px;
+    border: 1px solid #999999;
+    border-radius: 5px;
+}
+
+header .error-message {
+    display: none;
+    width: auto;
+    margin: 20px;
+    padding: 10px;
+    background-color: #E81123;
+    color: #FFFFFF;
+    border-radius: 5px;
+    text-align: center;
 }
 
 main {

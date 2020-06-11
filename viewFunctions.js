@@ -37,5 +37,14 @@ function generateWorksheetView(questions) {
 
 function printWorksheet () {
     window.print();
-    console.log('printing...')
+}
+
+function displayError (errorMessage) {
+    document.querySelector('.error-message').textContent = errorMessage
+    document.querySelector('.error-message').style.display = "block"
+
+    setTimeout(function() {
+        document.querySelector('.error-message').style.display = "none"
+        document.querySelector('.error-message').textContent = ""
+    }, 5000)
 }
