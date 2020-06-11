@@ -38,6 +38,10 @@ header div {
     overflow: auto;
 }
 
+header form {
+    overflow: auto;
+}
+
 header input, header select {
     margin-top: 3px;
     margin-right: 10px;
@@ -82,8 +86,14 @@ header .worksheet-section {
 }
 
 header .error-message {
-    margin: 10px;
-    color: #E81123;
+    display: none;
+    width: auto;
+    margin: 20px;
+    padding: 10px;
+    background-color: #E81123;
+    color: #FFFFFF;
+    border-radius: 5px;
+    text-align: center;
 }
 
 main {
