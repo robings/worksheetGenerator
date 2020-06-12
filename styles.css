@@ -52,6 +52,10 @@ header input {
     width: 75px;
 }
 
+header input[type="checkbox"] {
+    width: auto;
+}
+
 header .button {
     width: auto;
     color: #FFFFFF;
@@ -105,6 +109,7 @@ main {
 main h1 {
     text-align: center;
     color: #e74c3c;
+    margin: 0.5em;
 }
 
 #worksheet {
@@ -158,9 +163,30 @@ main h1 {
     margin-right: 10px;
 }
 
+#customBox {
+    border: 1px solid #2c3e50;
+    border-radius: 5px;
+    padding: 10px;
+    overflow: auto;
+    margin: 5px;
+    min-height: 250px;
+    position: relative;
+    display: none;
+}
+
+#customBox .tickBox {
+    width: 20px;
+    height: 20px;
+    float: none;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
 .scoreBox {
     width: fit-content;
     float: right;
+    margin: 5px;
 }
 
 .scoreBox div:last-child {

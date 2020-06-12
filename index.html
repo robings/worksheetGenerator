@@ -32,10 +32,12 @@
                         <option>&#247;</option>
                         <option>All</option>
                     </select>
-                    <label>No. of Questions: </label><input type="number"/>
+                    <label>No. of Questions: </label><input type="number" />
                     <div class="button delete float-right">Delete</div>
                 </div>
             </div>
+
+                <input type="checkbox" id="customBoxFlag" value="Include"/><label for="customBoxFlag">Include space at the end of the worksheet for a custom question</label>
 
             <div>
                 <div id ="noOfQuestions" class="inline float-left">No. of Questions: 0 (max 28)</div>
@@ -50,6 +52,9 @@
         <h1>Maths Worksheet</h1>
         <div>Date:</div>
         <div id="worksheet"></div>
+        <div id ="customBox">
+            <div class="tickBox"></div>
+        </div>
         <div class="scoreBox">
             <div class="answerBox"></div>
             <div id="totalPossibleScore">/&nbsp;</div>
