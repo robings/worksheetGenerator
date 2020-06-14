@@ -13,7 +13,7 @@ document.querySelector('.generate').addEventListener('click', () => {
             let customQuestionText = document.getElementById('customBoxText').value
             console.log(customQuestionText)
             document.querySelector('#customBox .questionNumber').textContent = `Q${noOfQuestions}.`
-            document.querySelector('#customBox .customQuestion').innerHTML = customQuestionText
+            document.querySelector('#customBox .customQuestion').textContent = customQuestionText
             document.getElementById('customBox').style.display = 'block'
         } else {
             document.getElementById('customBox').style.display = 'none'
