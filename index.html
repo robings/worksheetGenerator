@@ -40,7 +40,7 @@
                 <input type="checkbox" id="customBoxFlag" value="Include"/><label for="customBoxFlag">Include space at the end of the worksheet for a custom question</label>
 
             <div>
-                <div id ="noOfQuestions" class="inline float-left">No. of Questions: 0 (max 28)</div>
+                <div id ="noOfQuestions" class="inline float-left">No. of Questions: <span id="noOfQuestionsDisplay">0</span> (max <span id ="maxQuestionsDisplay">28</span>)</div>
             </div>
             <a href="index.html" class="button delete float-right">Clear</a>
         </form>
@@ -54,6 +54,7 @@
         <div>Date:</div>
         <div id="worksheet"></div>
         <div id ="customBox">
+            <div class="questionNumber"></div>
             <div class="tickBox"></div>
         </div>
         <div class="scoreBox">
