@@ -91,6 +91,14 @@ document.getElementById('customBoxFlag').addEventListener('change', () => {
     }
 })
 
+document.getElementById('imageFlag').addEventListener('change', () => {
+    if(document.getElementById('imageFlag').checked === true) {
+        document.querySelector('main img').style.display = 'block'
+    } else {
+        document.querySelector('main img').style.display = 'none'
+    }
+})
+
 function generateRandomNo(minNum, maxNum) {
     return Math.floor(Math.random() * (maxNum - minNum + 1) + minNum)
 }
