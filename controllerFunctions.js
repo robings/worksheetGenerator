@@ -32,7 +32,7 @@ document.querySelector('.worksheet-section').children[7].addEventListener('chang
 
 document.querySelector('.worksheet-section').children[8].addEventListener('click', (e) => {
     if (document.querySelectorAll('.worksheet-section').length === 1) {
-        displayError("Cannot delete the last section")
+        displayError('Cannot delete the last section')
     } else {
         e.currentTarget.parentElement.remove()
         let noOfQuestions = countQuestions()
@@ -73,7 +73,7 @@ document.querySelector('.add-section').addEventListener('click', () => {
 
     document.querySelectorAll('.worksheet-section')[lastSection].children[8].addEventListener('click', (e) => {
         if (document.querySelectorAll('.worksheet-section').length === 1) {
-            displayError("Cannot delete the last section")
+            displayError('Cannot delete the last section')
         } else {
             e.currentTarget.parentElement.remove()
             let noOfQuestions = countQuestions()
