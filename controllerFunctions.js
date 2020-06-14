@@ -11,7 +11,6 @@ document.querySelector('.generate').addEventListener('click', () => {
 
         if(document.getElementById('customBoxFlag').checked === true) {
             let customQuestionText = document.getElementById('customBoxText').value
-            console.log(customQuestionText)
             document.querySelector('#customBox .questionNumber').textContent = `Q${noOfQuestions}.`
             document.querySelector('#customBox .customQuestion').textContent = customQuestionText
             document.getElementById('customBox').style.display = 'block'
