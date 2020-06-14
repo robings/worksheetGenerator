@@ -10,7 +10,10 @@ document.querySelector('.generate').addEventListener('click', () => {
         document.getElementById('worksheet').innerHTML = generateWorksheetView(questions)
 
         if(document.getElementById('customBoxFlag').checked === true) {
+            let customQuestionText = document.getElementById('customBoxText').value
+            console.log(customQuestionText)
             document.querySelector('#customBox .questionNumber').textContent = `Q${noOfQuestions}.`
+            document.querySelector('#customBox .customQuestion').innerHTML = customQuestionText
             document.getElementById('customBox').style.display = 'block'
         } else {
             document.getElementById('customBox').style.display = 'none'
@@ -86,8 +89,10 @@ document.getElementById('customBoxFlag').addEventListener('change', () => {
     document.getElementById('noOfQuestionsDisplay').textContent = countQuestions()
     if(document.getElementById('customBoxFlag').checked === true) {
         document.getElementById('maxQuestionsDisplay').textContent = '21'
+        document.getElementById('customBoxText').style.display = 'block'
     } else {
         document.getElementById('maxQuestionsDisplay').textContent = '28'
+        document.getElementById('customBoxText').style.display = 'none'
     }
 })
 
