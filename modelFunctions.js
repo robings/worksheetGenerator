@@ -12,8 +12,6 @@ function generateWorksheetQuestions() {
 
         for (let i=0; i < noOfQuestions; i++)
         {
-            let x = generateRandomNo(minVal, maxVal)
-            let y = generateRandomNo(minVal, maxVal)
             let operand
 
             if(operandChoice === 'All') {
@@ -38,27 +36,30 @@ function generateWorksheetQuestions() {
             operand = operand == '×' ? operand = '&#215;' : operand
             operand = operand == '÷' ? operand = '&#247;' : operand
 
+            let x, y
             let boxPos = generateRandomNo(1,5)
             let answer
             let checkedQuestion
             switch(operand) {
                 case '+':
+                    x = generateRandomNo(minVal, maxVal)
+                    y = generateRandomNo(minVal, maxVal)
                     answer = x + y
                     break
                 case '-':
-                    checkedQuestion = checkMinusAnswer(x, y, minVal, maxVal)
+                    checkedQuestion = createMinusQuestion(minVal, maxVal)
                     x = checkedQuestion[0]
                     y = checkedQuestion[1]
                     answer = checkedQuestion[2]
                     break
                 case '&#215;':
-                    checkedQuestion = checkMultiplyAnswer(x, y, minVal, maxVal)
+                    checkedQuestion = createMultiplyQuestion(minVal, maxVal)
                     x = checkedQuestion[0]
                     y = checkedQuestion[1]
                     answer = checkedQuestion[2]
                     break
                 case '&#247;':
-                    checkedQuestion = checkDivideAnswer(x, y, minVal, maxVal)
+                    checkedQuestion = createDivideQuestion(minVal, maxVal)
                     x = checkedQuestion[0]
                     y = checkedQuestion[1]
                     answer = checkedQuestion[2]
@@ -75,13 +76,13 @@ function generateWorksheetQuestions() {
     return questions;
 }
 
-function checkMinusAnswer(x, y, minVal, maxVal) {
-    let checkedQuestion = []
+function createMinusQuestion(minVal, maxVal) {
+    let x, y, checkedQuestion = []
 
-    while((x-y) < 0) {
+    do {
         x = generateRandomNo(minVal, maxVal)
         y = generateRandomNo(minVal, maxVal)
-    }
+    } while((x-y) < 0)
 
     checkedQuestion[0] = x
     checkedQuestion[1] = y
@@ -89,13 +90,13 @@ function checkMinusAnswer(x, y, minVal, maxVal) {
     return checkedQuestion
 }
 
-function checkMultiplyAnswer(x, y, minVal, maxVal) {
-    let checkedQuestion = []
+function createMultiplyQuestion(minVal, maxVal) {
+    let x, y, checkedQuestion = []
 
-    while( x > 12 || y > 12) {
+    do {
         x = generateRandomNo(minVal, maxVal)
         y = generateRandomNo(minVal, maxVal)
-    }
+    } while( x > 12 || y > 12)
 
     checkedQuestion[0] = x
     checkedQuestion[1] = y
@@ -103,13 +104,16 @@ function checkMultiplyAnswer(x, y, minVal, maxVal) {
     return checkedQuestion
 }
 
-function checkDivideAnswer(x, y, minVal, maxVal) {
-    let checkedQuestion = []
+function createDivideQuestion(minVal, maxVal) {
+    let x, y, checkedQuestion = []
 
-    while(x%y != 0 || x === 0 || y === 0) {
-        x = generateRandomNo(minVal, maxVal)
-        y = generateRandomNo(minVal, maxVal)
-    }
+    minVal === 0 ? minVal = 1: minVal
+    maxVal > 144 ? maxVal = 144 : maxVal
+
+    do {
+        x = generateRandomNo(minVal, maxVal);
+        y = generateRandomNo(minVal, maxVal);
+    } while (x%y != 0 || Math.min(x, y) > 12 || (x/y) > 12);
 
     checkedQuestion[0] = x
     checkedQuestion[1] = y
