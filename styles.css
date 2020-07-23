@@ -89,6 +89,11 @@ header .worksheet-section {
     border-radius: 5px;
 }
 
+header textarea {
+    display: none;
+    width: 100%;
+}
+
 header .error-message {
     display: none;
     width: auto;
@@ -186,9 +191,20 @@ main img {
     display: none;
 }
 
+#customBox .customQuestion {
+    white-space: pre-wrap;
+}
+
 #customBox .tickBox {
     width: 20px;
     height: 20px;
+    float: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#customBox .answerBox {
     float: none;
     position: absolute;
     bottom: 10px;

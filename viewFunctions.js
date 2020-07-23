@@ -1,10 +1,16 @@
 function generateWorksheetView(questions) {
-    console.log(questions)
     let worksheetHTML = ''
 
     questions.forEach((question, key) => {
         let questionHTML = '<div class="questionContainer"><div class="question">'
-        questionHTML += `<div class="questionNumber">Q${key+1}.</div>`
+        let questionNumber = 0
+        if ((key + 1) %2 === 0) {
+            questionNumber = (key) + Math.ceil(questions.length/2) - Math.floor(key/2)
+        } else {
+            questionNumber = (key+1) - Math.floor(key/2)
+        }
+
+        questionHTML += `<div class="questionNumber">Q${questionNumber}.</div>`
 
         if(question.boxPos === 1) {
             questionHTML += '<div class="answerBox"></div>'
