@@ -52,6 +52,10 @@ header input {
     width: 75px;
 }
 
+header input[type="checkbox"] {
+    width: auto;
+}
+
 header .button {
     width: auto;
     color: #FFFFFF;
@@ -85,6 +89,11 @@ header .worksheet-section {
     border-radius: 5px;
 }
 
+header textarea {
+    display: none;
+    width: 100%;
+}
+
 header .error-message {
     display: none;
     width: auto;
@@ -97,15 +106,28 @@ header .error-message {
 }
 
 main {
+    position: relative;
     font-family: 'Comic Sans MS', 'sans-serif';
     color: #2980b9;
     font-size: 20px;
+    overflow: auto;
 }
 
 main h1 {
     text-align: center;
     color: #e74c3c;
+    margin: 0.5em;
 }
+
+main img {
+    width: 64px;
+    border: 2px solid #e67e22;
+    border-radius: 50%;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
 
 #worksheet {
     overflow: auto;
@@ -158,9 +180,41 @@ main h1 {
     margin-right: 10px;
 }
 
+#customBox {
+    border: 1px solid #2c3e50;
+    border-radius: 5px;
+    padding: 10px;
+    overflow: auto;
+    margin: 5px;
+    min-height: 250px;
+    position: relative;
+    display: none;
+}
+
+#customBox .customQuestion {
+    white-space: pre-wrap;
+}
+
+#customBox .tickBox {
+    width: 20px;
+    height: 20px;
+    float: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#customBox .answerBox {
+    float: none;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
 .scoreBox {
     width: fit-content;
     float: right;
+    margin: 5px;
 }
 
 .scoreBox div:last-child {

@@ -2,11 +2,23 @@ document.querySelector('.generate').addEventListener('click', () => {
     if (validateInput()) {
         displayError(validateInput())
     } else {
-        document.querySelector('.error-message').style.display = "none"
-        document.querySelector('.error-message').textContent = ""
+        let noOfQuestions = countQuestions()
+        document.querySelector('.error-message').style.display = 'none'
+        document.querySelector('.error-message').textContent = ''
+
         let questions = generateWorksheetQuestions()
         document.getElementById('worksheet').innerHTML = generateWorksheetView(questions)
-        document.getElementById('totalPossibleScore').innerText = `/ ${questions.length}`
+
+        if(document.getElementById('customBoxFlag').checked === true) {
+            let customQuestionText = document.getElementById('customBoxText').value
+            document.querySelector('#customBox .questionNumber').textContent = `Q${noOfQuestions}.`
+            document.querySelector('#customBox .customQuestion').textContent = customQuestionText
+            document.getElementById('customBox').style.display = 'block'
+        } else {
+            document.getElementById('customBox').style.display = 'none'
+        }
+
+        document.getElementById('totalPossibleScore').innerText = `/ ${noOfQuestions}`
 
         document.querySelector('.print').addEventListener('click', (e) => {
             e.stopImmediatePropagation()
@@ -15,18 +27,18 @@ document.querySelector('.generate').addEventListener('click', () => {
     }
 })
 
-document.querySelector('.worksheet-section').children[7].addEventListener('blur', () => {
+document.querySelector('.worksheet-section').children[7].addEventListener('change', () => {
     let noOfQuestions = countQuestions()
-    document.getElementById('noOfQuestions').textContent = `No. of Questions: ${noOfQuestions} (max 28)`
+    document.getElementById('noOfQuestionsDisplay').textContent = noOfQuestions
 })
 
 document.querySelector('.worksheet-section').children[8].addEventListener('click', (e) => {
     if (document.querySelectorAll('.worksheet-section').length === 1) {
-        displayError("Cannot delete the last section")
+        displayError('Cannot delete the last section')
     } else {
         e.currentTarget.parentElement.remove()
         let noOfQuestions = countQuestions()
-        document.getElementById('noOfQuestions').textContent = `No. of Questions: ${noOfQuestions} (max 28)`
+        document.getElementById('noOfQuestionsDisplay').textContent = noOfQuestions
     }
 })
 
@@ -56,20 +68,39 @@ document.querySelector('.add-section').addEventListener('click', () => {
 
     let lastSection = document.querySelectorAll('.worksheet-section').length - 1
 
-    document.querySelectorAll('.worksheet-section')[lastSection].children[7].addEventListener('blur', () => {
+    document.querySelectorAll('.worksheet-section')[lastSection].children[7].addEventListener('change', () => {
         let noOfQuestions = countQuestions()
-        document.getElementById('noOfQuestions').textContent = `No. of Questions: ${noOfQuestions} (max 28)`
+        document.getElementById('noOfQuestionsDisplay').textContent = noOfQuestions
     })
 
     document.querySelectorAll('.worksheet-section')[lastSection].children[8].addEventListener('click', (e) => {
         if (document.querySelectorAll('.worksheet-section').length === 1) {
-            displayError("Cannot delete the last section")
+            displayError('Cannot delete the last section')
         } else {
             e.currentTarget.parentElement.remove()
             let noOfQuestions = countQuestions()
-            document.getElementById('noOfQuestions').textContent = `No. of Questions: ${noOfQuestions} (max 28)`
+            document.getElementById('noOfQuestionsDisplay').textContent = noOfQuestions
         }
     })
+})
+
+document.getElementById('customBoxFlag').addEventListener('change', () => {
+    document.getElementById('noOfQuestionsDisplay').textContent = countQuestions()
+    if(document.getElementById('customBoxFlag').checked === true) {
+        document.getElementById('maxQuestionsDisplay').textContent = '21'
+        document.getElementById('customBoxText').style.display = 'block'
+    } else {
+        document.getElementById('maxQuestionsDisplay').textContent = '28'
+        document.getElementById('customBoxText').style.display = 'none'
+    }
+})
+
+document.getElementById('imageFlag').addEventListener('change', () => {
+    if(document.getElementById('imageFlag').checked === true) {
+        document.querySelector('main img').style.display = 'block'
+    } else {
+        document.querySelector('main img').style.display = 'none'
+    }
 })
 
 function generateRandomNo(minNum, maxNum) {
@@ -84,6 +115,9 @@ function countQuestions() {
             totalQuestions += parseInt(worksheetSection.children[7].value)
         }
     })
+    if(document.getElementById('customBoxFlag').checked === true) {
+        totalQuestions += 1
+    }
     return totalQuestions
 }
 
@@ -96,6 +130,12 @@ function validateInput() {
     let digitsOnlyFlag = false
     let noOfQuestionsFlag = false
     let operandErrorFlag = false
+    let maxQuestions
+    if(document.getElementById('customBoxFlag').checked === true) {
+        maxQuestions= 21
+    } else {
+        maxQuestions = 28
+    }
 
     worksheetSections.forEach((worksheetSection) => {
         if (worksheetSection.querySelectorAll('input')[0].value < 0 ||
@@ -128,8 +168,8 @@ function validateInput() {
     message += noOfQuestionsFlag ? 'Please enter a number of questions. ' : ''
     message += operandErrorFlag ? 'Operand error. ' : ''
 
-    if (totalQuestions > 28) {
-        message += '28 is the maximum number of questions that will fit on the page.'
+    if (totalQuestions > maxQuestions) {
+        message += `${maxQuestions} is the maximum number of questions that will fit on the page.`
     }
 
     return message

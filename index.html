@@ -16,6 +16,7 @@
         <form>
             <div>
                 <div class="button add-section float-left">Add Section</div>
+                <a href="index.html" class="button delete float-left">Clear</a>
                 <div class="button print float-right">Print</div>
                 <div class="button generate float-right">Generate Worksheet</div>
             </div>
@@ -32,24 +33,36 @@
                         <option>&#247;</option>
                         <option>All</option>
                     </select>
-                    <label>No. of Questions: </label><input type="number"/>
+                    <label>No. of Questions: </label><input type="number" />
                     <div class="button delete float-right">Delete</div>
                 </div>
             </div>
 
+            <input type="checkbox" id="customBoxFlag" /><label for="customBoxFlag">Include space at the end of the worksheet for a custom question</label>
+            <textarea cols="60" rows="6" id="customBoxText" placeholder="Write text for your custom question here, or leave blank if you plan to hand write it."></textarea>
             <div>
-                <div id ="noOfQuestions" class="inline float-left">No. of Questions: 0 (max 28)</div>
+                <input type="checkbox" id="imageFlag" checked /><label for="imageFlag">Display confused person image</label>
             </div>
-            <a href="index.html" class="button delete float-right">Clear</a>
+
+            <div>
+                <div id ="noOfQuestions" class="inline float-right">No. of Questions: <span id="noOfQuestionsDisplay">0</span> (max <span id ="maxQuestionsDisplay">28</span>)</div>
+            </div>
         </form>
 
         <div class="error-message"></div>
     </header>
 
     <main>
+        <img src="./confused.png" />
         <h1>Maths Worksheet</h1>
         <div>Date:</div>
         <div id="worksheet"></div>
+        <div id ="customBox">
+            <div class="questionNumber"></div>
+            <div class="customQuestion"></div>
+            <div class="answerBox"></div>
+            <div class="tickBox"></div>
+        </div>
         <div class="scoreBox">
             <div class="answerBox"></div>
             <div id="totalPossibleScore">/&nbsp;</div>
