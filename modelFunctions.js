@@ -77,12 +77,9 @@ function generateWorksheetQuestions() {
 }
 
 function createMinusQuestion(minVal, maxVal) {
+    validateValues(minVal, maxVal, "Minus");
+    
     let x, y, checkedQuestion = [];
-
-    if (!minVal.toString().match(/^\d+$/) || !maxVal.toString().match(/^\d+$/)) {
-        throw new Error("createMinusQuestion: Value Error");
-    }
-
 
     do {
         x = generateRandomNo(minVal, maxVal)
@@ -96,6 +93,8 @@ function createMinusQuestion(minVal, maxVal) {
 }
 
 function createMultiplyQuestion(minVal, maxVal) {
+    validateValues(minVal, maxVal, "Multiply");
+    
     let x, y, checkedQuestion = []
 
     do {
@@ -110,6 +109,8 @@ function createMultiplyQuestion(minVal, maxVal) {
 }
 
 function createDivideQuestion(minVal, maxVal) {
+    validateValues(minVal, maxVal, "Divide");
+    
     let x, y, checkedQuestion = []
 
     minVal === 0 ? minVal = 1: minVal
@@ -130,6 +131,18 @@ function generateRandomNo(minNum, maxNum) {
     return Math.floor(Math.random() * (maxNum - minNum + 1) + minNum)
 }
 
+function validateValues(minVal, maxVal, questionType) {
+    if (minVal === null || maxVal === null || minVal === undefined || maxVal === undefined) {
+        throw new Error (`create${questionType}Question: Value Error`);
+    }
+
+    if (!minVal.toString().match(/^\d+$/) || !maxVal.toString().match(/^\d+$/)) {
+        throw new Error(`create${questionType}Question: Value Error`);
+    }
+}
+
 module.exports = {
     createMinusQuestion,
+    createDivideQuestion,
+    createMultiplyQuestion,
 }

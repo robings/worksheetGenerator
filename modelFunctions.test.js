@@ -1,25 +1,121 @@
 const { expect } = require('@jest/globals');
 const modelFunctions = require('./modelFunctions')
 
-test('creates a minus question with min of 1 and max of 10', () => {
-  let questionResult = modelFunctions.createMinusQuestion(1, 10);
-  let answer = questionResult[0] - questionResult[1]; 
-
-  expect(questionResult[0]).toBeGreaterThanOrEqual(1);
-  expect(questionResult[0]).toBeLessThanOrEqual(10);
-  expect(questionResult[1]).toBeGreaterThanOrEqual(1);
-  expect(questionResult[1]).toBeLessThanOrEqual(10);
-  expect(questionResult[2]).toBe(answer);
+expect.extend({
+  toBeWithinRange(received, floor, ceiling) {
+    const pass = received >= floor && received <= ceiling;
+    if (pass) {
+      return {
+        message: () =>
+          `expected ${received} not to be within range ${floor} - ${ceiling}`,
+        pass: true,
+      };
+    } else {
+      return {
+        message: () =>
+          `expected ${received} to be within range ${floor} - ${ceiling}`,
+        pass: false,
+      };
+    }
+  },
 });
 
-test('throws exception if minVal input is incorrect', () => {
-  expect(() => {
-    modelFunctions.createMinusQuestion("blabla", 10)
-  }).toThrow("createMinusQuestion: Value Error");
+test('createMinusQuestion returns array with 3 values', () => {
+  let questionArray = modelFunctions.createMinusQuestion(1, 10);
+
+  expect(questionArray.length).toBe(3);
 });
 
-test('throws exception if maxVal input is incorrect', () => {
-  expect(() => {
-    modelFunctions.createMinusQuestion(10, "y")
-  }).toThrow("createMinusQuestion: Value Error");
+test('createMinusQuestion given numbers between 1 and 10 generates question with numbers between 1 and 10', () => {
+  let questionArray = modelFunctions.createMinusQuestion(1, 10);
+
+  expect(questionArray[0]).toBeWithinRange(1, 10);
+  expect(questionArray[1]).toBeWithinRange(1, 10);
+});
+
+test('createMinusQuestion stores correct answer in array', () => {
+  let questionArray = modelFunctions.createMinusQuestion(1, 10);
+  let answer = questionArray[0] - questionArray[1]; 
+
+  expect(questionArray[2]).toBe(answer);
+})
+
+describe('createMinusQuestion given invalid values', () => {
+  it.each`
+    a | b
+    ${'blabla'} | ${10}
+    ${10} | ${'blabla'}
+    ${[1,2]} | ${5}
+    ${5} | ${[1,2]}
+    ${null} | ${6}
+    ${6} | ${null}
+    ${undefined} | ${6}
+    ${6} | ${undefined}
+  `('should throw when minVal is $a and maxVal is $b', ({a, b}) => {
+    expect(() => {
+      modelFunctions.createMinusQuestion(a, b)
+    }).toThrow("createMinusQuestion: Value Error")
+  });
+});
+
+test('createDivideQuestion returns array with 3 values', () => {
+  let questionArray = modelFunctions.createDivideQuestion(1, 10);
+
+  expect(questionArray.length).toBe(3);
+});
+
+test('createDivideQuestion stores correct answer in array', () => {
+  let questionArray = modelFunctions.createDivideQuestion(1, 10);
+  let answer = questionArray[0] / questionArray[1]; 
+
+  expect(questionArray[2]).toBe(answer);
+})
+
+describe('createDivideQuestion given invalid values', () => {
+  it.each`
+    a | b
+    ${'blabla'} | ${10}
+    ${10} | ${'blabla'}
+    ${[1,2]} | ${5}
+    ${5} | ${[1,2]}
+    ${null} | ${6}
+    ${6} | ${null}
+    ${undefined} | ${6}
+    ${6} | ${undefined}
+  `('should throw when minVal is $a and maxVal is $b', ({a, b}) => {
+    expect(() => {
+      modelFunctions.createDivideQuestion(a, b)
+    }).toThrow("createDivideQuestion: Value Error")
+  });
+});
+
+test('createMultiplyQuestion returns array with 3 values', () => {
+  let questionArray = modelFunctions.createMultiplyQuestion(1, 10);
+
+  expect(questionArray.length).toBe(3);
+});
+
+test('createMultiplyQuestion stores correct answer in array', () => {
+  let questionArray = modelFunctions.createMultiplyQuestion(1, 10);
+  let answer = questionArray[0] * questionArray[1]; 
+
+  expect(questionArray[2]).toBe(answer);
+})
+
+describe('createMultiplyQuestion given invalid values', () => {
+  it.each`
+    a | b
+    ${'blabla'} | ${10}
+    ${10} | ${'blabla'}
+    ${[1,2]} | ${5}
+    ${5} | ${[1,2]}
+    ${null} | ${6}
+    ${6} | ${null}
+    ${undefined} | ${6}
+    ${6} | ${undefined}
+  `('should throw when minVal is $a and maxVal is $b', ({a, b}) => {
+    expect(() => {
+      modelFunctions.createMultiplyQuestion(a, b)
+    }).toThrow("createMultiplyQuestion: Value Error")
+  });
 });
