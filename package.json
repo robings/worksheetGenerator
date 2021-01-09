@@ -1,0 +1,22 @@
+{
+  "name": "worksheetgenerator",
+  "version": "1.0.0",
+  "description": "\"Generates custom printable worksheets for primary age children\"",
+  "main": "controllerFunctions.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robings/worksheetGenerator.git"
+  },
+  "author": "Robin Gordon-Stables",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robings/worksheetGenerator/issues"
+  },
+  "homepage": "https://github.com/robings/worksheetGenerator#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}

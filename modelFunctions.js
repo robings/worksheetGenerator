@@ -77,7 +77,12 @@ function generateWorksheetQuestions() {
 }
 
 function createMinusQuestion(minVal, maxVal) {
-    let x, y, checkedQuestion = []
+    let x, y, checkedQuestion = [];
+
+    if (!minVal.toString().match(/^\d+$/) || !maxVal.toString().match(/^\d+$/)) {
+        throw new Error("createMinusQuestion: Value Error");
+    }
+
 
     do {
         x = generateRandomNo(minVal, maxVal)
@@ -119,4 +124,12 @@ function createDivideQuestion(minVal, maxVal) {
     checkedQuestion[1] = y
     checkedQuestion[2] = x / y
     return checkedQuestion
+}
+
+function generateRandomNo(minNum, maxNum) {
+    return Math.floor(Math.random() * (maxNum - minNum + 1) + minNum)
+}
+
+module.exports = {
+    createMinusQuestion,
 }
