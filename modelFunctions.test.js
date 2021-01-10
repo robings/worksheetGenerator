@@ -133,3 +133,25 @@ describe('createMultiplyQuestion given invalid values', () => {
     }).toThrow("createMultiplyQuestion: Value Error")
   });
 });
+
+test('generateRandomNo given min and max values generates number between those values', () => {
+    expect(modelFunctions.generateRandomNo(1,3)).toBeWithinRange(1,3);
+})
+
+describe('generateRandomNo given invalid values', () => {
+  it.each`
+    a | b
+    ${'blabla'} | ${10}
+    ${10} | ${'blabla'}
+    ${[1,2]} | ${5}
+    ${5} | ${[1,2]}
+    ${null} | ${6}
+    ${6} | ${null}
+    ${undefined} | ${6}
+    ${6} | ${undefined}
+  `('should throw when minNum is $a and maxNum is $b', ({a, b}) => {
+    expect(() => {
+      modelFunctions.generateRandomNo(a, b)
+    }).toThrow("generateRandomNo: Value Error")
+  });
+});

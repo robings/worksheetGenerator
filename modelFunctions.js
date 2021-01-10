@@ -128,16 +128,23 @@ function createDivideQuestion(minVal, maxVal) {
 }
 
 function generateRandomNo(minNum, maxNum) {
+    validateValues(minNum, maxNum, 'Random')
     return Math.floor(Math.random() * (maxNum - minNum + 1) + minNum)
 }
 
 function validateValues(minVal, maxVal, questionType) {
+    let functionName = `create${questionType}Question`;
+
+    if (questionType === 'Random') {
+        functionName = 'generateRandomNo';
+    }
+
     if (minVal === null || maxVal === null || minVal === undefined || maxVal === undefined) {
-        throw new Error (`create${questionType}Question: Value Error`);
+        throw new Error (`${functionName}: Value Error`);
     }
 
     if (!minVal.toString().match(/^\d+$/) || !maxVal.toString().match(/^\d+$/)) {
-        throw new Error(`create${questionType}Question: Value Error`);
+        throw new Error(`${functionName}: Value Error`);
     }
 }
 
@@ -145,4 +152,6 @@ module.exports = {
     createMinusQuestion,
     createDivideQuestion,
     createMultiplyQuestion,
+    generateRandomNo,
+    validateValues,
 }
