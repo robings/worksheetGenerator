@@ -71,6 +71,13 @@ test('createDivideQuestion stores correct answer in array', () => {
   expect(questionArray[2]).toBe(answer);
 })
 
+test('createDivideQuestion defaults to using numbers betweeen 1 and 144 for questions', () => {
+  let questionArray = modelFunctions.createDivideQuestion(1, 10);
+
+  expect(questionArray[0]).toBeWithinRange(1, 144);
+  expect(questionArray[1]).toBeWithinRange(1, 144);
+});
+
 describe('createDivideQuestion given invalid values', () => {
   it.each`
     a | b
@@ -101,6 +108,13 @@ test('createMultiplyQuestion stores correct answer in array', () => {
 
   expect(questionArray[2]).toBe(answer);
 })
+
+test('createMultiplyQuestion defaults to using numbers betweeen 1 and 12 for questions', () => {
+  let questionArray = modelFunctions.createDivideQuestion(1, 10);
+
+  expect(questionArray[0]).toBeWithinRange(1, 12);
+  expect(questionArray[1]).toBeWithinRange(1, 12);
+});
 
 describe('createMultiplyQuestion given invalid values', () => {
   it.each`
