@@ -77,7 +77,9 @@ function generateWorksheetQuestions() {
 }
 
 function createMinusQuestion(minVal, maxVal) {
-    let x, y, checkedQuestion = []
+    validateValues(minVal, maxVal, "Minus");
+    
+    let x, y, checkedQuestion = [];
 
     do {
         x = generateRandomNo(minVal, maxVal)
@@ -91,6 +93,8 @@ function createMinusQuestion(minVal, maxVal) {
 }
 
 function createMultiplyQuestion(minVal, maxVal) {
+    validateValues(minVal, maxVal, "Multiply");
+    
     let x, y, checkedQuestion = []
 
     do {
@@ -105,6 +109,8 @@ function createMultiplyQuestion(minVal, maxVal) {
 }
 
 function createDivideQuestion(minVal, maxVal) {
+    validateValues(minVal, maxVal, "Divide");
+    
     let x, y, checkedQuestion = []
 
     minVal === 0 ? minVal = 1: minVal
@@ -119,4 +125,33 @@ function createDivideQuestion(minVal, maxVal) {
     checkedQuestion[1] = y
     checkedQuestion[2] = x / y
     return checkedQuestion
+}
+
+function generateRandomNo(minNum, maxNum) {
+    validateValues(minNum, maxNum, 'Random')
+    return Math.floor(Math.random() * (maxNum - minNum + 1) + minNum)
+}
+
+function validateValues(minVal, maxVal, questionType) {
+    let functionName = `create${questionType}Question`;
+
+    if (questionType === 'Random') {
+        functionName = 'generateRandomNo';
+    }
+
+    if (minVal === null || maxVal === null || minVal === undefined || maxVal === undefined) {
+        throw new Error (`${functionName}: Value Error`);
+    }
+
+    if (!minVal.toString().match(/^\d+$/) || !maxVal.toString().match(/^\d+$/)) {
+        throw new Error(`${functionName}: Value Error`);
+    }
+}
+
+module.exports = {
+    createMinusQuestion,
+    createDivideQuestion,
+    createMultiplyQuestion,
+    generateRandomNo,
+    validateValues,
 }

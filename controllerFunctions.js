@@ -103,10 +103,6 @@ document.getElementById('imageFlag').addEventListener('change', () => {
     }
 })
 
-function generateRandomNo(minNum, maxNum) {
-    return Math.floor(Math.random() * (maxNum - minNum + 1) + minNum)
-}
-
 function countQuestions() {
     let totalQuestions = 0
     let worksheetSections = document.querySelectorAll('.worksheet-section')
