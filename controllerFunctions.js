@@ -8,6 +8,7 @@ document.querySelector('.generate').addEventListener('click', () => {
 
         let questions = generateWorksheetQuestions()
         document.getElementById('worksheet').innerHTML = generateWorksheetView(questions)
+        document.getElementById('answersheet').innerHTML = generateAnswersheetView(questions)
 
         if(document.getElementById('customBoxFlag').checked === true) {
             let customQuestionText = document.getElementById('customBoxText').value
