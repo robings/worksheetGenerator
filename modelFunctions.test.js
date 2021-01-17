@@ -20,6 +20,43 @@ expect.extend({
   },
 });
 
+describe('validateValues given invalid values', () => {
+  it.each`
+    a | b | c
+    ${'blabla'} | ${10} | ${'Minus'}
+    ${10} | ${'blabla'} | ${'Minus'}
+    ${[1,2]} | ${5} | ${'Minus'}
+    ${5} | ${[1,2]} | ${'Minus'}
+    ${null} | ${6} | ${'Minus'}
+    ${6} | ${null} | ${'Minus'}
+    ${undefined} | ${6} | ${'Minus'}
+    ${6} | ${undefined} | ${'Minus'}
+  `('should throw error including "$c" when minVal is $a and maxVal is $b', ({a, b, c}) => {
+    expect(() => {
+      modelFunctions.validateValues(a, b, c)
+    }).toThrow(`create${c}Question: Value Error`)
+  });
+});
+
+describe('validateValues given invalid values returns error message relevant to calling function', () => {
+  it.each`
+    a | b | c
+    ${'blabla'} | ${10} | ${'Minus'}
+    ${'blabla'} | ${10} | ${'Divide'}
+    ${'blabla'} | ${10} | ${'Multiply'}
+  `('should throw error including "$c" when minVal is $a and maxVal is $b', ({a, b, c}) => {
+    expect(() => {
+      modelFunctions.validateValues(a, b, c)
+    }).toThrow(`create${c}Question: Value Error`)
+  });
+});
+
+test('validateValues given invalid values and generateRandomNumber as calling function returns relevant error message', () => {
+  expect(() => {
+      modelFunctions.validateValues('blabla', 10, 'Random')
+    }).toThrow(`generateRandomNo: Value Error`)
+});
+
 test('createMinusQuestion returns array with 3 values', () => {
   let questionArray = modelFunctions.createMinusQuestion(1, 10);
 
@@ -40,24 +77,6 @@ test('createMinusQuestion stores correct answer in array', () => {
   expect(questionArray[2]).toBe(answer);
 })
 
-describe('createMinusQuestion given invalid values', () => {
-  it.each`
-    a | b
-    ${'blabla'} | ${10}
-    ${10} | ${'blabla'}
-    ${[1,2]} | ${5}
-    ${5} | ${[1,2]}
-    ${null} | ${6}
-    ${6} | ${null}
-    ${undefined} | ${6}
-    ${6} | ${undefined}
-  `('should throw when minVal is $a and maxVal is $b', ({a, b}) => {
-    expect(() => {
-      modelFunctions.createMinusQuestion(a, b)
-    }).toThrow("createMinusQuestion: Value Error")
-  });
-});
-
 test('createDivideQuestion returns array with 3 values', () => {
   let questionArray = modelFunctions.createDivideQuestion(1, 10);
 
@@ -76,24 +95,6 @@ test('createDivideQuestion defaults to using numbers betweeen 1 and 144 for ques
 
   expect(questionArray[0]).toBeWithinRange(1, 144);
   expect(questionArray[1]).toBeWithinRange(1, 144);
-});
-
-describe('createDivideQuestion given invalid values', () => {
-  it.each`
-    a | b
-    ${'blabla'} | ${10}
-    ${10} | ${'blabla'}
-    ${[1,2]} | ${5}
-    ${5} | ${[1,2]}
-    ${null} | ${6}
-    ${6} | ${null}
-    ${undefined} | ${6}
-    ${6} | ${undefined}
-  `('should throw when minVal is $a and maxVal is $b', ({a, b}) => {
-    expect(() => {
-      modelFunctions.createDivideQuestion(a, b)
-    }).toThrow("createDivideQuestion: Value Error")
-  });
 });
 
 test('createMultiplyQuestion returns array with 3 values', () => {
@@ -116,42 +117,6 @@ test('createMultiplyQuestion defaults to using numbers betweeen 1 and 12 for que
   expect(questionArray[1]).toBeWithinRange(1, 12);
 });
 
-describe('createMultiplyQuestion given invalid values', () => {
-  it.each`
-    a | b
-    ${'blabla'} | ${10}
-    ${10} | ${'blabla'}
-    ${[1,2]} | ${5}
-    ${5} | ${[1,2]}
-    ${null} | ${6}
-    ${6} | ${null}
-    ${undefined} | ${6}
-    ${6} | ${undefined}
-  `('should throw when minVal is $a and maxVal is $b', ({a, b}) => {
-    expect(() => {
-      modelFunctions.createMultiplyQuestion(a, b)
-    }).toThrow("createMultiplyQuestion: Value Error")
-  });
-});
-
 test('generateRandomNo given min and max values generates number between those values', () => {
     expect(modelFunctions.generateRandomNo(1,3)).toBeWithinRange(1,3);
 })
-
-describe('generateRandomNo given invalid values', () => {
-  it.each`
-    a | b
-    ${'blabla'} | ${10}
-    ${10} | ${'blabla'}
-    ${[1,2]} | ${5}
-    ${5} | ${[1,2]}
-    ${null} | ${6}
-    ${6} | ${null}
-    ${undefined} | ${6}
-    ${6} | ${undefined}
-  `('should throw when minNum is $a and maxNum is $b', ({a, b}) => {
-    expect(() => {
-      modelFunctions.generateRandomNo(a, b)
-    }).toThrow("generateRandomNo: Value Error")
-  });
-});
