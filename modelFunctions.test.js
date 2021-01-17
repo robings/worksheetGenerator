@@ -1,4 +1,3 @@
-const { expect } = require('@jest/globals');
 const modelFunctions = require('./modelFunctions')
 
 expect.extend({
