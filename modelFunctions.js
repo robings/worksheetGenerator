@@ -73,6 +73,7 @@ function generateWorksheetQuestions() {
         }
     })
 
+    console.log(questions);
     return questions;
 }
 

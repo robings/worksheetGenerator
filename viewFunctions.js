@@ -97,3 +97,8 @@ function displayError (errorMessage) {
         document.querySelector('.error-message').textContent = ""
     }, 5000)
 }
+
+module.exports = {
+    generateAnswersheetView,
+    generateWorksheetView,
+}
