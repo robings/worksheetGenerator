@@ -101,8 +101,9 @@ function createMultiplyQuestion(minVal, maxVal, restricted) {
 
     if (restricted) {
             minVal = minVal > 12 ? 1 : minVal;
-            x = generateRandomNo(minVal, 12)
-            y = generateRandomNo(minVal, 12)
+            maxVal = maxVal > 12 ? 12 : maxVal;
+            x = generateRandomNo(minVal, maxVal)
+            y = generateRandomNo(minVal, maxVal)
     } else {
         x = generateRandomNo(minVal, maxVal)
         y = generateRandomNo(minVal, maxVal)
