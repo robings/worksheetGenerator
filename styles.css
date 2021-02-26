@@ -19,7 +19,7 @@
     width: auto;
 }
 
-header, main {
+header, main, section {
     border: 1px solid #2c3e50;
     border-radius: 5px;
     padding: 10px;
@@ -105,7 +105,7 @@ header .error-message {
     text-align: center;
 }
 
-main {
+main, section {
     position: relative;
     font-family: 'Comic Sans MS', 'sans-serif';
     color: #2980b9;
@@ -113,10 +113,11 @@ main {
     overflow: auto;
 }
 
-main h1 {
+main h1, section h1 {
     text-align: center;
     color: #e74c3c;
     margin: 0.5em;
+    font-size: 2em;
 }
 
 main img {
@@ -130,6 +131,10 @@ main img {
 
 
 #worksheet {
+    overflow: auto;
+}
+
+#answersheet {
     overflow: auto;
 }
 
@@ -221,6 +226,16 @@ main img {
     float: left;
 }
 
+section {
+    margin-top: 20px;
+}
+
+.note {
+    font-family: "Helvetica Neue", "Helvetica", sans-serif;
+    font-size: 0.75rem;
+    color: #000000;
+}
+
 @media print {
     header {
         display: none;
@@ -229,6 +244,10 @@ main img {
     @page {
         size: auto;
         margin: 5mm;
+    }
+
+    main {
+        page-break-after: always;
     }
 
     .pageContainer {

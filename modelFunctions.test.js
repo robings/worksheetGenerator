@@ -74,7 +74,7 @@ test('createMinusQuestion stores correct answer in array', () => {
   let answer = questionArray[0] - questionArray[1]; 
 
   expect(questionArray[2]).toBe(answer);
-})
+});
 
 test('createDivideQuestion returns array with 3 values', () => {
   let questionArray = modelFunctions.createDivideQuestion(1, 10);
@@ -87,7 +87,7 @@ test('createDivideQuestion stores correct answer in array', () => {
   let answer = questionArray[0] / questionArray[1]; 
 
   expect(questionArray[2]).toBe(answer);
-})
+});
 
 test('createDivideQuestion defaults to using numbers betweeen 1 and 144 for questions', () => {
   let questionArray = modelFunctions.createDivideQuestion(1, 10);
@@ -107,7 +107,7 @@ test('createMultiplyQuestion stores correct answer in array', () => {
   let answer = questionArray[0] * questionArray[1]; 
 
   expect(questionArray[2]).toBe(answer);
-})
+});
 
 test('createMultiplyQuestion defaults to using numbers betweeen 1 and 12 for questions', () => {
   let questionArray = modelFunctions.createDivideQuestion(1, 10);
@@ -118,4 +118,4 @@ test('createMultiplyQuestion defaults to using numbers betweeen 1 and 12 for que
 
 test('generateRandomNo given min and max values generates number between those values', () => {
     expect(modelFunctions.generateRandomNo(1,3)).toBeWithinRange(1,3);
-})
+});
