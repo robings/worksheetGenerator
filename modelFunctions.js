@@ -2,6 +2,8 @@ function generateWorksheetQuestions() {
     let questions = [];
 
     let worksheetSections = document.querySelectorAll('.worksheet-section')
+    let multiplicationRestricted = document.getElementById('multiplicationRestrictionFlag').checked === true;
+    let divisionRestricted = document.getElementById('divisionRestrictionFlag').checked === true;
 
     worksheetSections.forEach((worksheetSection) => {
         let minVal=parseInt(worksheetSection.children[1].value)
@@ -53,13 +55,13 @@ function generateWorksheetQuestions() {
                     answer = checkedQuestion[2]
                     break
                 case '&#215;':
-                    checkedQuestion = createMultiplyQuestion(minVal, maxVal)
+                    checkedQuestion = createMultiplyQuestion(minVal, maxVal, multiplicationRestricted)
                     x = checkedQuestion[0]
                     y = checkedQuestion[1]
                     answer = checkedQuestion[2]
                     break
                 case '&#247;':
-                    checkedQuestion = createDivideQuestion(minVal, maxVal)
+                    checkedQuestion = createDivideQuestion(minVal, maxVal, divisionRestricted)
                     x = checkedQuestion[0]
                     y = checkedQuestion[1]
                     answer = checkedQuestion[2]
@@ -92,15 +94,19 @@ function createMinusQuestion(minVal, maxVal) {
     return checkedQuestion
 }
 
-function createMultiplyQuestion(minVal, maxVal) {
+function createMultiplyQuestion(minVal, maxVal, restricted) {
     validateValues(minVal, maxVal, "Multiply");
     
     let x, y, checkedQuestion = []
 
-    do {
+    if (restricted) {
+            minVal = minVal > 12 ? 1 : minVal;
+            x = generateRandomNo(minVal, 12)
+            y = generateRandomNo(minVal, 12)
+    } else {
         x = generateRandomNo(minVal, maxVal)
         y = generateRandomNo(minVal, maxVal)
-    } while( x > 12 || y > 12)
+    }
 
     checkedQuestion[0] = x
     checkedQuestion[1] = y
@@ -108,18 +114,30 @@ function createMultiplyQuestion(minVal, maxVal) {
     return checkedQuestion
 }
 
-function createDivideQuestion(minVal, maxVal) {
+function createDivideQuestion(minVal, maxVal, restricted) {
     validateValues(minVal, maxVal, "Divide");
     
     let x, y, checkedQuestion = []
 
-    minVal === 0 ? minVal = 1: minVal
-    maxVal > 144 ? maxVal = 144 : maxVal
+    minVal = minVal === 0 ? 1: minVal;
 
-    do {
-        x = generateRandomNo(minVal, maxVal);
-        y = generateRandomNo(minVal, maxVal);
-    } while (x%y != 0 || Math.min(x, y) > 12 || (x/y) > 12);
+    let timeOut = 1;
+
+    if (restricted){
+        maxVal = maxVal > 144 ? 144 : maxVal;
+        minVal = minVal > 144 ? 1 : minVal;
+
+        do {
+            x = generateRandomNo(minVal, maxVal);
+            y = generateRandomNo(minVal, maxVal);
+        } while (x%y != 0 || Math.min(x, y) > 12 || (x/y) > 12);
+    } else {
+        do {
+            x = generateRandomNo(minVal, maxVal);
+            y = generateRandomNo(minVal, maxVal);
+            timeOut++;
+        } while (x%y != 0 && timeOut < 10000);
+    }    
 
     checkedQuestion[0] = x
     checkedQuestion[1] = y

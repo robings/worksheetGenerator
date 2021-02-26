@@ -77,40 +77,61 @@ test('createMinusQuestion stores correct answer in array', () => {
 });
 
 test('createDivideQuestion returns array with 3 values', () => {
-  let questionArray = modelFunctions.createDivideQuestion(1, 10);
+  let questionArray = modelFunctions.createDivideQuestion(1, 10, true);
 
   expect(questionArray.length).toBe(3);
 });
 
 test('createDivideQuestion stores correct answer in array', () => {
-  let questionArray = modelFunctions.createDivideQuestion(1, 10);
+  let questionArray = modelFunctions.createDivideQuestion(1, 10, true);
   let answer = questionArray[0] / questionArray[1]; 
 
   expect(questionArray[2]).toBe(answer);
 });
 
 test('createDivideQuestion defaults to using numbers betweeen 1 and 144 for questions', () => {
-  let questionArray = modelFunctions.createDivideQuestion(1, 10);
+  let questionArray = modelFunctions.createDivideQuestion(1, 200, true);
 
   expect(questionArray[0]).toBeWithinRange(1, 144);
   expect(questionArray[1]).toBeWithinRange(1, 144);
 });
 
+test('createDivideQuestion without restriction uses numbers from specified range for questions', () => {
+  let questionArray = modelFunctions.createDivideQuestion(150, 400, false);
+
+  expect(questionArray[0]).toBeWithinRange(150, 400);
+  expect(questionArray[1]).toBeWithinRange(150, 400);
+});
+
 test('createMultiplyQuestion returns array with 3 values', () => {
-  let questionArray = modelFunctions.createMultiplyQuestion(1, 10);
+  let questionArray = modelFunctions.createMultiplyQuestion(1, 10, true);
 
   expect(questionArray.length).toBe(3);
 });
 
 test('createMultiplyQuestion stores correct answer in array', () => {
-  let questionArray = modelFunctions.createMultiplyQuestion(1, 10);
+  let questionArray = modelFunctions.createMultiplyQuestion(1, 10, true);
   let answer = questionArray[0] * questionArray[1]; 
 
   expect(questionArray[2]).toBe(answer);
 });
 
 test('createMultiplyQuestion defaults to using numbers betweeen 1 and 12 for questions', () => {
-  let questionArray = modelFunctions.createDivideQuestion(1, 10);
+  let questionArray = modelFunctions.createMultiplyQuestion(1, 100, true);
+
+  expect(questionArray[0]).toBeWithinRange(1, 12);
+  expect(questionArray[1]).toBeWithinRange(1, 12);
+});
+
+test('createMultiplyQuestion with restrictions off uses numbers within the specified range for questions', () => {
+  let questionArray = modelFunctions.createMultiplyQuestion(20, 100, false);
+
+  expect(questionArray[0]).toBeWithinRange(20, 100);
+  expect(questionArray[1]).toBeWithinRange(20, 100);
+});
+
+test('createMultiplyQuestion defaults to using numbers betweeen 1 and 12 for questions, even if the minimum value is greater than 12', () => {
+  let questionArray = modelFunctions.createMultiplyQuestion(20, 100, true);
 
   expect(questionArray[0]).toBeWithinRange(1, 12);
   expect(questionArray[1]).toBeWithinRange(1, 12);

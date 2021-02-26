@@ -129,6 +129,9 @@ main img {
     right: 30px;
 }
 
+#customBoxText {
+    margin-top: 5px;
+}
 
 #worksheet {
     overflow: auto;
