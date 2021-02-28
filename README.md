@@ -16,6 +16,8 @@ E.g. if you put in a minimum value of 1 and a maximum value of 10 with the opera
 
     NOTE: the printouts work best printed from Chrome or Edge.
 
+    If you want to make changes to the setup of the worksheet after having generated it, click `UNHIDE SETTINGS`.
+
 ## Adding additional sections
 - If you wish, you can add sections to the form that generates the worksheet, this allows you to for example, generate a section of addition questions for numbers up to 5, a section for subtraction for numbers up to 10, etc. Click `ADD SECTION` to add a blank section row.
 - If you wish to remove a section, click the `DELETE` button for that section.
