@@ -112,6 +112,16 @@ header .worksheet-section {
 header textarea {
     display: none;
     width: 100%;
+    margin-top: 5px;
+}
+
+header #customAnswer {
+    display: none;
+    width: 100%;
+}
+
+header #customAnswer input[type="text"] {
+    width: 100%;
 }
 
 header .error-message {
@@ -148,10 +158,6 @@ main img {
     position: absolute;
     top: 30px;
     right: 30px;
-}
-
-#customBoxText {
-    margin-top: 5px;
 }
 
 #worksheet {
@@ -209,7 +215,7 @@ main img {
     margin-right: 10px;
 }
 
-#customBox {
+#customBox, #customAnswerBox {
     border: 1px solid #2c3e50;
     border-radius: 5px;
     padding: 10px;
@@ -218,6 +224,10 @@ main img {
     min-height: 250px;
     position: relative;
     display: none;
+}
+
+#customAnswerBox {
+    min-height: 30px;
 }
 
 #customBox .customQuestion {
