@@ -25,6 +25,18 @@ document.querySelector('.generate').addEventListener('click', () => {
             e.stopImmediatePropagation()
             printWorksheet()
         })
+
+        document.querySelector('.unhide-settings').addEventListener('click', (e) => {
+            e.stopImmediatePropagation()
+            document.querySelector('form').style.display = 'block'
+            document.querySelector('.unhide-settings').style.display = 'none'
+        })
+
+        document.querySelector('form').style.display = 'none'
+        document.querySelector('.unhide-settings').style.display = 'block'
+        document.querySelector('.hidden-control-container').style.display = 'block'
+        document.querySelector('main').style.display = 'block'
+        document.querySelector('section').style.display = 'block'
     }
 })
 

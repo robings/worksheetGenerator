@@ -82,6 +82,26 @@ header .delete:hover {
     background-color: #E74856;
 }
 
+header .hidden-control-container {
+    margin-top: 0;
+    display: none;
+    padding: 7px 5px;
+    border: 1px solid #999999;
+    border-radius: 5px;
+}
+
+header .unhide-settings {
+    display: none;
+}
+
+header .hidden-control-container .button {
+    background-color :#FF8C00;
+}
+
+header .hidden-control-container .button:hover {
+    background-color :#FFB900;
+}
+
 header .worksheet-section {
     margin: 20px 0;
     padding: 7px 5px;
@@ -111,6 +131,7 @@ main, section {
     color: #2980b9;
     font-size: 20px;
     overflow: auto;
+    display: none;
 }
 
 main h1, section h1 {
