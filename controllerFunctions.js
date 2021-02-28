@@ -126,6 +126,7 @@ function validateInput() {
     let nosRequiredFlag = false
     let digitsOnlyFlag = false
     let noOfQuestionsFlag = false
+    let minGreaterThanMaxFlag = false
     let operandErrorFlag = false
     let maxQuestions
     if(document.getElementById('customBoxFlag').checked === true) {
@@ -140,17 +141,25 @@ function validateInput() {
             worksheetSection.querySelectorAll('input')[2].value < 0) {
             negNosMessageFlag = true
         }
+
         if (worksheetSection.querySelectorAll('input')[0].value === '' ||
             worksheetSection.querySelectorAll('input')[1].value === '') {
             nosRequiredFlag = true
         }
+
         if (!worksheetSection.querySelectorAll('input')[0].value.match(/^\d+$/) ||
             !worksheetSection.querySelectorAll('input')[1].value.match(/^\d+$/) ||
             !worksheetSection.querySelectorAll('input')[2].value.match(/^\d+$/)) {
             digitsOnlyFlag = true
         }
+
         if (worksheetSection.querySelectorAll('input')[2].value === '') {
             noOfQuestionsFlag = true
+        }
+
+        if (parseInt(worksheetSection.querySelectorAll('input')[0].value) >=
+            parseInt(worksheetSection.querySelectorAll('input')[1].value)) {
+            minGreaterThanMaxFlag = true
         }
 
         if (!worksheetSection.querySelector('select').value.match(/^[+-×÷]$/) &&
@@ -163,6 +172,7 @@ function validateInput() {
     message += nosRequiredFlag ? 'A minimum number and maximum number are required. ' : ''
     message += digitsOnlyFlag ? 'Only numbers can be entered in the form. ' : ''
     message += noOfQuestionsFlag ? 'Please enter a number of questions. ' : ''
+    message += minGreaterThanMaxFlag ? 'Minimum number cannot be greater than or equal to maximum number. ' : ''
     message += operandErrorFlag ? 'Operand error. ' : ''
 
     if (totalQuestions > maxQuestions) {
