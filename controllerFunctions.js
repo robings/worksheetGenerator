@@ -15,8 +15,14 @@ document.querySelector('.generate').addEventListener('click', () => {
             document.querySelector('#customBox .questionNumber').textContent = `Q${noOfQuestions}.`
             document.querySelector('#customBox .customQuestion').textContent = customQuestionText
             document.getElementById('customBox').style.display = 'block'
+
+            let customAnswerText = document.getElementById('customAnswerText').value
+            document.querySelector('#customAnswerBox .questionNumber').textContent = `Q${noOfQuestions}.`
+            document.querySelector('#customAnswerBox .customAnswer').textContent = customAnswerText
+            document.getElementById('customAnswerBox').style.display = 'block'
         } else {
             document.getElementById('customBox').style.display = 'none'
+            document.getElementById('customAnswerBox').style.display = 'none'
         }
 
         document.getElementById('totalPossibleScore').innerText = `/ ${noOfQuestions}`
@@ -25,6 +31,18 @@ document.querySelector('.generate').addEventListener('click', () => {
             e.stopImmediatePropagation()
             printWorksheet()
         })
+
+        document.querySelector('.unhide-settings').addEventListener('click', (e) => {
+            e.stopImmediatePropagation()
+            document.querySelector('form').style.display = 'block'
+            document.querySelector('.unhide-settings').style.display = 'none'
+        })
+
+        document.querySelector('form').style.display = 'none'
+        document.querySelector('.unhide-settings').style.display = 'block'
+        document.querySelector('.hidden-control-container').style.display = 'block'
+        document.querySelector('main').style.display = 'block'
+        document.querySelector('section').style.display = 'block'
     }
 })
 
@@ -90,9 +108,11 @@ document.getElementById('customBoxFlag').addEventListener('change', () => {
     if(document.getElementById('customBoxFlag').checked === true) {
         document.getElementById('maxQuestionsDisplay').textContent = '21'
         document.getElementById('customBoxText').style.display = 'block'
+        document.getElementById('customAnswer').style.display = 'block'
     } else {
         document.getElementById('maxQuestionsDisplay').textContent = '28'
         document.getElementById('customBoxText').style.display = 'none'
+        document.getElementById('customAnswer').style.display = 'none'
     }
 })
 
