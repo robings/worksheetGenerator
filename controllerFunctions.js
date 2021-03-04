@@ -1,3 +1,10 @@
+let randomNumberGenerator = {
+    generateRandomNo: function (minNum, maxNum) {
+        validateValues(minNum, maxNum, 'Random')
+        return Math.floor(Math.random() * (maxNum - minNum + 1) + minNum)
+    }
+}
+
 document.querySelector('.generate').addEventListener('click', () => {
     if (validateInput()) {
         displayError(validateInput())
@@ -6,7 +13,7 @@ document.querySelector('.generate').addEventListener('click', () => {
         document.querySelector('.error-message').style.display = 'none'
         document.querySelector('.error-message').textContent = ''
 
-        let questions = generateWorksheetQuestions()
+        let questions = generateWorksheetQuestions(randomNumberGenerator)
         document.getElementById('worksheet').innerHTML = generateWorksheetView(questions)
         document.getElementById('answersheet').innerHTML = generateAnswersheetView(questions)
 

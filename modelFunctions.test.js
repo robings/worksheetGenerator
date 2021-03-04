@@ -1,23 +1,22 @@
 const modelFunctions = require('./modelFunctions')
 
-expect.extend({
-  toBeWithinRange(received, floor, ceiling) {
-    const pass = received >= floor && received <= ceiling;
-    if (pass) {
-      return {
-        message: () =>
-          `expected ${received} not to be within range ${floor} - ${ceiling}`,
-        pass: true,
-      };
-    } else {
-      return {
-        message: () =>
-          `expected ${received} to be within range ${floor} - ${ceiling}`,
-        pass: false,
-      };
+var fakeRandomNumberGenerator = {
+  randomValueOne: undefined,
+  randomValueTwo: undefined,
+  calledWithMinValue: undefined,
+  calledWithMaxValue: undefined,
+  called: 0,
+  generateRandomNo: function (minVal, maxVal) {
+    this.called ++
+    this.calledWithMinValue = minVal
+    this.calledWithMaxValue = maxVal
+    if (this.called % 2 !== 0) {
+      return this.randomValueOne    }
+    else {
+      return this.randomValueTwo
     }
-  },
-});
+  }
+}
 
 describe('validateValues given invalid values', () => {
   it.each`
@@ -40,6 +39,7 @@ describe('validateValues given invalid values', () => {
 describe('validateValues given invalid values returns error message relevant to calling function', () => {
   it.each`
     a | b | c
+    ${'blabla'} | ${10} | ${'Plus'}
     ${'blabla'} | ${10} | ${'Minus'}
     ${'blabla'} | ${10} | ${'Divide'}
     ${'blabla'} | ${10} | ${'Multiply'}
@@ -56,87 +56,137 @@ test('validateValues given invalid values and generateRandomNumber as calling fu
     }).toThrow(`generateRandomNo: Value Error`)
 });
 
-test('createMinusQuestion returns array with 3 values', () => {
-  let questionArray = modelFunctions.createMinusQuestion(1, 10);
+test('createPlusQuestion returns array with 3 values, with answer as third value', () => {
+  fakeRandomNumberGenerator.randomValueOne = 3;
+  fakeRandomNumberGenerator.randomValueTwo = 4;
+  fakeRandomNumberGenerator.called = 0;
+  let questionArray = modelFunctions.createPlusQuestion(1, 10, fakeRandomNumberGenerator);
+  let expectedAnswer = fakeRandomNumberGenerator.randomValueOne + fakeRandomNumberGenerator.randomValueTwo;
 
   expect(questionArray.length).toBe(3);
+  expect(questionArray).toStrictEqual([fakeRandomNumberGenerator.randomValueOne, fakeRandomNumberGenerator.randomValueTwo = 4, expectedAnswer]);
 });
 
-test('createMinusQuestion given numbers between 1 and 10 generates question with numbers between 1 and 10', () => {
-  let questionArray = modelFunctions.createMinusQuestion(1, 10);
+test('createPlusQuestion given invalid values throws error', () => {
+  expect(() => {
+     modelFunctions.createPlusQuestion("bla", 10, fakeRandomNumberGenerator)}).toThrow()
+  });
 
-  expect(questionArray[0]).toBeWithinRange(1, 10);
-  expect(questionArray[1]).toBeWithinRange(1, 10);
-});
-
-test('createMinusQuestion stores correct answer in array', () => {
-  let questionArray = modelFunctions.createMinusQuestion(1, 10);
-  let answer = questionArray[0] - questionArray[1]; 
-
-  expect(questionArray[2]).toBe(answer);
-});
-
-test('createDivideQuestion returns array with 3 values', () => {
-  let questionArray = modelFunctions.createDivideQuestion(1, 10, true);
+test('createMinusQuestion returns array with 3 values, with answer as third value', () => {
+  fakeRandomNumberGenerator.randomValueOne = 4;
+  fakeRandomNumberGenerator.randomValueTwo = 2;
+  fakeRandomNumberGenerator.called = 0;
+  let questionArray = modelFunctions.createMinusQuestion(1, 10, fakeRandomNumberGenerator);
+  let expectedAnswer = fakeRandomNumberGenerator.randomValueOne - fakeRandomNumberGenerator.randomValueTwo;
 
   expect(questionArray.length).toBe(3);
+  expect(questionArray).toStrictEqual([4, 2, expectedAnswer]);
 });
 
-test('createDivideQuestion stores correct answer in array', () => {
-  let questionArray = modelFunctions.createDivideQuestion(1, 10, true);
-  let answer = questionArray[0] / questionArray[1]; 
+test('createMinusQuestion given invalid values throws error', () => {
+  expect(() => {
+     modelFunctions.createMinusQuestion("bla", 10, fakeRandomNumberGenerator)}).toThrow()
+  });
 
-  expect(questionArray[2]).toBe(answer);
+test('createMinusQuestion where values result in negative answer, makes only 10,000 attempts to create question', () => {
+  fakeRandomNumberGenerator.randomValueOne = 2;
+  fakeRandomNumberGenerator.randomValueTwo = 4;
+  fakeRandomNumberGenerator.called = 0;
+  let questionArray = modelFunctions.createMinusQuestion(1, 10, fakeRandomNumberGenerator);
+
+  expect(questionArray.length).toBe(3);
+  expect(questionArray).toStrictEqual([2, 4, -2]);
+  expect(fakeRandomNumberGenerator.called).toBe(20000);
 });
 
-test('createDivideQuestion defaults to using numbers betweeen 1 and 144 for questions', () => {
-  let questionArray = modelFunctions.createDivideQuestion(1, 200, true);
+test('createDivideQuestion returns array with 3 values, with answer as third value', () => {
+  fakeRandomNumberGenerator.randomValueOne = 8;
+  fakeRandomNumberGenerator.randomValueTwo = 2;
+  fakeRandomNumberGenerator.called = 0;
+  let questionArray = modelFunctions.createDivideQuestion(1, 10, true, fakeRandomNumberGenerator);
+  let expectedAnswer = fakeRandomNumberGenerator.randomValueOne / fakeRandomNumberGenerator.randomValueTwo;
 
-  expect(questionArray[0]).toBeWithinRange(1, 144);
-  expect(questionArray[1]).toBeWithinRange(1, 144);
+  expect(questionArray.length).toBe(3);
+  expect(questionArray).toStrictEqual([8, 2, expectedAnswer]);
+});
+
+test('createDivideQuestion with restriction uses numbers betweeen 1 and 144 for questions', () => {
+  modelFunctions.createDivideQuestion(150, 200, true, fakeRandomNumberGenerator);
+
+  expect(fakeRandomNumberGenerator.calledWithMinValue).toBe(1);
+  expect(fakeRandomNumberGenerator.calledWithMaxValue).toBe(144);
 });
 
 test('createDivideQuestion without restriction uses numbers from specified range for questions', () => {
-  let questionArray = modelFunctions.createDivideQuestion(150, 400, false);
+  modelFunctions.createDivideQuestion(150, 400, false, fakeRandomNumberGenerator);
 
-  expect(questionArray[0]).toBeWithinRange(150, 400);
-  expect(questionArray[1]).toBeWithinRange(150, 400);
+  expect(fakeRandomNumberGenerator.calledWithMinValue).toBe(150);
+  expect(fakeRandomNumberGenerator.calledWithMaxValue).toBe(400);
 });
 
-test('createMultiplyQuestion returns array with 3 values', () => {
-  let questionArray = modelFunctions.createMultiplyQuestion(1, 10, true);
+test('createDivideQuestion where unrestricted values make it impossible to get a whole number answer, makes only 10,000 attempts to create question', () => {
+  fakeRandomNumberGenerator.randomValueOne = 150;
+  fakeRandomNumberGenerator.randomValueTwo = 200;
+  fakeRandomNumberGenerator.called = 0;
+  let questionArray = modelFunctions.createDivideQuestion(150, 200, false, fakeRandomNumberGenerator);
 
   expect(questionArray.length).toBe(3);
+  expect(questionArray).toStrictEqual([150, 200, (150/200)]);
+  expect(fakeRandomNumberGenerator.called).toBe(20000);
 });
 
-test('createMultiplyQuestion stores correct answer in array', () => {
-  let questionArray = modelFunctions.createMultiplyQuestion(1, 10, true);
-  let answer = questionArray[0] * questionArray[1]; 
+test('createDivideQuestion where restricted values make it impossible to get a whole number answer, makes only 10,000 attempts to create question', () => {
+  fakeRandomNumberGenerator.randomValueOne = 7;
+  fakeRandomNumberGenerator.randomValueTwo = 4;
+  fakeRandomNumberGenerator.called = 0;
+  let questionArray = modelFunctions.createDivideQuestion(1, 10, true, fakeRandomNumberGenerator);
 
-  expect(questionArray[2]).toBe(answer);
+  expect(questionArray.length).toBe(3);
+  expect(questionArray).toStrictEqual([7, 4, (7/4)]);
+  expect(fakeRandomNumberGenerator.called).toBe(20000);
 });
 
-test('createMultiplyQuestion defaults to using numbers betweeen 1 and 12 for questions', () => {
-  let questionArray = modelFunctions.createMultiplyQuestion(1, 100, true);
+describe('createDivideQuestion where values make it impossible to get a whole number answer, makes only 10,000 attempts to create question', () => {
+  it.each`
+    a | b | c
+    ${150} | ${200} | ${false}
+    ${7} | ${4} | ${true}
+  `('value one is $a and value two is $b and restriction status is $c', ({a, b, c}) => {
+    fakeRandomNumberGenerator.randomValueOne = a;
+    fakeRandomNumberGenerator.randomValueTwo = b;
+    fakeRandomNumberGenerator.called = 0;
+    let questionArray = modelFunctions.createDivideQuestion(a, b, c, fakeRandomNumberGenerator);
 
-  expect(questionArray[0]).toBeWithinRange(1, 12);
-  expect(questionArray[1]).toBeWithinRange(1, 12);
+    expect(questionArray.length).toBe(3);
+    expect(questionArray).toStrictEqual([a, b, (a/b)]);
+    expect(fakeRandomNumberGenerator.called).toBe(20000);
+  });
 });
 
-test('createMultiplyQuestion with restrictions off uses numbers within the specified range for questions', () => {
-  let questionArray = modelFunctions.createMultiplyQuestion(20, 100, false);
+test('createMultiplyQuestion returns array with 3 values, with answer as third value', () => {
+  fakeRandomNumberGenerator.randomValueOne = 7;
+  fakeRandomNumberGenerator.randomValueTwo = 4;
+  fakeRandomNumberGenerator.called = 0;
+  let questionArray = modelFunctions.createMultiplyQuestion(1, 12, true, fakeRandomNumberGenerator);
+  let expectedAnswer = fakeRandomNumberGenerator.randomValueOne * fakeRandomNumberGenerator.randomValueTwo;
 
-  expect(questionArray[0]).toBeWithinRange(20, 100);
-  expect(questionArray[1]).toBeWithinRange(20, 100);
+  expect(questionArray.length).toBe(3);
+  expect(questionArray).toStrictEqual([7, 4, expectedAnswer]);
 });
 
-test('createMultiplyQuestion defaults to using numbers betweeen 1 and 12 for questions, even if the minimum value is greater than 12', () => {
-  let questionArray = modelFunctions.createMultiplyQuestion(20, 100, true);
+test('createMultiplyQuestion with restriction uses numbers betweeen 1 and 12 for questions', () => {
+  modelFunctions.createMultiplyQuestion(150, 200, true, fakeRandomNumberGenerator);
 
-  expect(questionArray[0]).toBeWithinRange(1, 12);
-  expect(questionArray[1]).toBeWithinRange(1, 12);
+  expect(fakeRandomNumberGenerator.calledWithMinValue).toBe(1);
+  expect(fakeRandomNumberGenerator.calledWithMaxValue).toBe(12);
 });
 
-test('generateRandomNo given min and max values generates number between those values', () => {
-    expect(modelFunctions.generateRandomNo(1,3)).toBeWithinRange(1,3);
+test('createMultiplyQuestion without restriction uses numbers from the specified range for questions', () => {
+  fakeRandomNumberGenerator.randomValueOne = 3
+  fakeRandomNumberGenerator.randomValueTwo = 15
+  fakeRandomNumberGenerator.called = 0
+  modelFunctions.createMultiplyQuestion(1, 15, false, fakeRandomNumberGenerator);
+
+  expect(fakeRandomNumberGenerator.calledWithMinValue).toBe(1);
+  expect(fakeRandomNumberGenerator.calledWithMaxValue).toBe(15);
 });
