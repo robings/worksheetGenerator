@@ -122,6 +122,7 @@ header #customAnswer {
 
 header #customAnswer input[type="text"] {
     width: 100%;
+    margin-right: 0;
 }
 
 header .error-message {
