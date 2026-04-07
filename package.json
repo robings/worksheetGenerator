@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/robings/worksheetGenerator#readme",
   "devDependencies": {
-    "jest": "^27.2.5"
+    "jest": "^30.3.0"
   }
 }
